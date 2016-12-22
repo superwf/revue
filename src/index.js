@@ -1,4 +1,4 @@
-import update from 'lodash/update'
+import dotProp from 'dot-prop'
 
 // to valid and match like `a as x.y.z`
 const re = /^([\w\.-]+)\s+as\s+([\w\.-]+)$/i
@@ -34,7 +34,7 @@ function bindVue(Vue, store) {
 					this._bindProps.forEach(prop => {
 						const {storeProp, realProp} = prop
 						if (realProp && storeProp) {
-							update(this, realProp, () => deepProp(store.getState(), storeProp))
+							dotProp.set(this, realProp, deepProp(store.getState(), storeProp))
 						}
 					})
 				}
