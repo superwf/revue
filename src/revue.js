@@ -1,3 +1,5 @@
+import update from 'lodash/update'
+
 // to valid and match like `a as x.y.z`
 const re = /^([\w\.-]+)\s+as\s+([\w\.-]+)$/i
 
@@ -32,7 +34,7 @@ function bindVue(Vue, store) {
 					this._bindProps.forEach(prop => {
 						const {storeProp, realProp} = prop
 						if (realProp && storeProp) {
-							this.$set(realProp, deepProp(store.getState(), storeProp))
+							update(this, realProp, () => deepProp(store.getState(), storeProp))
 						}
 					})
 				}
